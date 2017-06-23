@@ -1,0 +1,2 @@
+#!/bin/bash
+python3 /autograder/source/autograder.py /autograder/source/reference.txt /autograder/submission/submission.txt --out=/autograder/results/results.json
