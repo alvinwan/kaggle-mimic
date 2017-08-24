@@ -37,7 +37,7 @@ def grade(
 
     ref_len, subm_len = float(len(ref)), len(subm)
     if len(ref) != len(subm):
-        raise ValueError('Submission too short (%d instead of %d lines)' %
+        raise ValueError('Wrong number of lines (%d instead of %d lines)' %
             (subm_len, ref_len))
 
     output['Accuracy'] = accuracy = sum(
@@ -109,9 +109,12 @@ def add_submissions_information(output: dict, metadata: dict):
 
     Requires output to have a key 'score' containing current submission score.
     """
-    output['Previous Highest Score'] = prevHighest = max(
-        [sub['score'] for sub in metadata['previous_submissions']])
-    output['Highest Score'] = max([output['Score'], prevHighest])
+    if not metadata['previous_submissions']:
+        output['Previous Highest Score'] = 0.
+    else:
+        output['Previous Highest Score'] = prevHighest = max(
+            [float(sub['score']) for sub in metadata['previous_submissions']])
+    output['Highest Score'] = max([output['Score'], output['Previous Highest Score']])
 
 
 
