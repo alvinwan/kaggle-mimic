@@ -52,7 +52,7 @@ def write_output(
         f.write(json.dumps({
             'score': output['Score'],
             'success': 1,
-            'output': output
+            'output': json.dumps(output)
         }))
 
 
