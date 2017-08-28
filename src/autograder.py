@@ -41,7 +41,7 @@ def grade(
             (subm_len, ref_len))
 
     output['Loss'] = loss = sum(
-        (float(a) - float(b)) ** 2 for a, b in zip(ref, subm))
+        (float(a) - float(b)) ** 2 for a, b in zip(ref, subm)) / len(subm)
     output['Score'] = points if loss <= threshold else 0.0
 
 
