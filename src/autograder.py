@@ -9,7 +9,7 @@ Usage:
 
 Options:
     --out=<out>         Path to write results as JSON [default: results.json]
-    --threshold=<bar>   Accuracy needed for full score [default: 0.8]
+    --threshold=<bar>   Accuracy needed for full score [default: 20]
     --points=<pts>      Total points for assignment [default: 100]
     --max-daily=<m>     Maximum number of submissions per day [default: 2]
     --metadata=<path>   Path to submission metadata information [default: /autograder/submission_metadata.json]
@@ -40,9 +40,9 @@ def grade(
         raise ValueError('Wrong number of lines (%d instead of %d lines)' %
             (subm_len, ref_len))
 
-    output['Accuracy'] = accuracy = sum(
-        int(a) == int(b) for a, b in zip(ref, subm)) / ref_len
-    output['Score'] = points if accuracy >= threshold else 0.0
+    output['Loss'] = loss = sum(
+        (a - b) ** 2 for a, b in zip(ref, subm)) / ref_len
+    output['Score'] = points if loss <= threshold else 0.0
 
 
 def write_output(
