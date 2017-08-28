@@ -41,7 +41,7 @@ def grade(
             (subm_len, ref_len))
 
     output['Accuracy'] = accuracy = sum(
-        int(a) == int(b) for a, b in zip(ref, subm)) / ref_len
+        (float(a) - float(b)) < abs(1e-2) for a, b in zip(ref, subm)) / ref_len
     output['Score'] = points if accuracy >= threshold else 0.0
 
 
