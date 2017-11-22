@@ -88,6 +88,7 @@ def check_max_daily_submissions(
             submission['submission_time'][::-1].replace(':', '', 1)[::-1],
             '%Y-%m-%dT%H:%M:%S.%f%z').replace(tzinfo=tz)
         if (today - submission_date).days == 0 \
+                and submission['results'] is not None \
                 and submission['results'].get('success', 1):
             valid_submission_count += 1
     if valid_submission_count >= max_daily:
