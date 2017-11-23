@@ -89,7 +89,7 @@ def check_max_daily_submissions(
             '%Y-%m-%dT%H:%M:%S.%f%z').replace(tzinfo=tz)
         if (today - submission_date).days == 0 \
                 and submission['results'] is not None \
-                and submission['results'].get('success', 1):
+                and submission['results'].get('success', 0):
             valid_submission_count += 1
     if valid_submission_count >= max_daily:
         raise UserWarning('You have used up your %d submissions for the \
