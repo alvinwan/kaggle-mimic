@@ -17,7 +17,9 @@ Options:
 
 from datetime import datetime
 import docopt
+import glob
 import json
+import os
 import pytz
 
 from pytz import timezone
@@ -32,6 +34,11 @@ def grade(
     """Grade submission"""
     with open(ref_path) as f:
         ref = list(f)
+    if not os.path.exists(subm_path):
+        print(' * Submission path "%s" not found. Picking new path...' % subm_path)
+        subm_path = next(glob.iglob(
+            os.path.join(os.path.dirname(subm_path), '*')))
+    print(' * Checking %s' % subm_path)
     with open(subm_path) as f:
         subm = list(f)
 
